@@ -2,6 +2,7 @@ import ujson as json
 from datetime import datetime
 from collections import defaultdict, Counter
 from typing import List, Tuple
+import argparse
 import emoji
 from memory_profiler import memory_usage
 import cProfile
@@ -93,30 +94,75 @@ def q2_memory(file_path: str) -> List[Tuple[str, int]]:
     return emoji_counts.most_common(10)
 
 
-args = {'file_path': 'tweets.json'}
-mem_usage = memory_usage((q2_memory,(),args), interval=0.1)
-print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
-print('Maximum memory usage: %s' % max(mem_usage))
+def q3_time(file_path: str) -> List[Tuple[str, int]]:
+    mentions_counter = Counter()
+    
+    with open(file_path, 'r') as f:
+        for line in f:
+            tweet = json.loads(line)
+            content = tweet["content"]
+            mentions = [word[1:] for word in content.split() if word.startswith('@')]
+            mentions_counter.update(mentions)
 
+    return mentions_counter.most_common(10)
 
-# # Crear un objeto cProfile
-# profiler = cProfile.Profile()
+def q3_memory(file_path: str) -> List[Tuple[str, int]]:
+    mentions_counter = defaultdict(int)
 
-# # Iniciar el perfilado
-# profiler.enable()
+    def read_jsonl(file_path):
+        with open(file_path, 'r') as f:
+            for line in f:
+                yield json.loads(line)
 
-# # Ejecutar la función que deseas perfilar
-# q2_time('tweets.json')
+    for tweet in read_jsonl(file_path):
+        content = tweet["content"]
+        mentions = (word[1:] for word in content.split() if word.startswith('@'))
+        for mention in mentions:
+            mentions_counter[mention] += 1
 
-# # Detener el perfilado
-# profiler.disable()
+    return sorted(mentions_counter.items(), key=lambda x: x[1], reverse=True)[:10]
 
-# # Mostrar las estadísticas
-# # profiler.print_stats()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Funciones optimizadas para memoria o tiempo de ejecucion; Challenge Data Engineer")
+    parser.add_argument("funcion", choices=["q1_memory", "q1_time", "q2_memory", "q2_time","q3_memory", "q3_time"], help="Selecciona la función a ejecutar")
+    parser.add_argument("--file_path", type=str, default='tweets.json', help="Valor por defecto para file_path es: tweets.json")
 
-# stats = pstats.Stats(profiler)
+    args = parser.parse_args()
+    parser.print_help()
 
-# total_time = sum(entry[3] for entry in stats.stats.values())
-# mean_time = total_time / len(stats.stats)
-# print(f"Mean execution time: {mean_time}")
-# print(f'Total execution time:{total_time}')
+    if args.funcion == "q1_memory":
+        mem_usage = memory_usage((q1_memory, (args.file_path,)), interval=1)
+        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage: %s' % max(mem_usage))
+    elif args.funcion == "q1_time":
+        profiler = cProfile.Profile()
+        profiler.enable()
+        q1_time(args.file_path)
+        profiler.disable()
+        stats = pstats.Stats(profiler)
+        total_time = sum(entry[3] for entry in stats.stats.values())
+        print(f'Total execution time: {total_time}')
+    elif args.funcion == "q2_memory":
+        mem_usage = memory_usage((q2_memory, (args.file_path,)), interval=1)
+        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage: %s' % max(mem_usage))
+    elif args.funcion == "q2_time":
+        profiler = cProfile.Profile()
+        profiler.enable()
+        q2_time(args.file_path)
+        profiler.disable()
+        stats = pstats.Stats(profiler)
+        total_time = sum(entry[3] for entry in stats.stats.values())
+        print(f'Total execution time: {total_time}')
+    elif args.funcion == "q3_memory":
+        mem_usage = memory_usage((q3_memory, (args.file_path,)), interval=1)
+        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage: %s' % max(mem_usage))
+    elif args.funcion == "q3_time":
+        profiler = cProfile.Profile()
+        profiler.enable()
+        q3_time(args.file_path)
+        profiler.disable()
+        stats = pstats.Stats(profiler)
+        total_time = sum(entry[3] for entry in stats.stats.values())
+        print(f'Total execution time: {total_time}')
