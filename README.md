@@ -65,48 +65,48 @@ Si queres modificar las funciones podes hacerlo desde **soluciones.ipynb**, dond
 
 ## Resultados de Rendimiento
 
-Para medir el rendimiento de las funciones en memoria use **memory-profiler** y para el rendimiento de tiempo utilice **cProfile** y **pstats**.
+Para medir el rendimiento de las funciones en memoria se usa **memory-profiler** y para el rendimiento de tiempo  **cProfile** y **pstats**.
 
  - q1_time
 
 ```bash
-Total execution time in seconds: 9.25
+Total execution time in seconds: 6.02
 ```
 - q1_memory
 
 ```bash
-Memory usage in MB (in chunks of  1 seconds): [51.34765625, 51.34765625, 51.72265625, 51.84765625, 51.84765625, 51.84765625, 52.34765625, 52.34765625, 52.47265625, 52.47265625, 52.47265625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625, 52.59765625]
-Maximum memory usage in MB: 52.59765625
+Memory usage in MB (in chunks of  1 seconds): [51.42, 51.42, 51.8, 51.92, 51.92, 51.92, 52.42, 52.42, 52.42, 52.55, 52.55, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67, 52.67]
+Maximum memory usage in MB: 52.67
 ```
 
 - q2_time
 
 ```bash
-Total execution time in seconds: 10.74
+Total execution time in seconds: 10.88
 ```
 - q2_memory
 
 ```bash
-Memory usage in MB (in chunks of  1 seconds): [51.22265625, 51.22265625, 51.72265625, 51.72265625, 51.72265625, 51.72265625]
-Maximum memory usage in MB: 51.72265625
+Memory usage in MB (in chunks of  1 seconds): [51.34, 51.34, 51.72, 51.72, 51.84]
+Maximum memory usage in MB: 51.84
 ```
 
 - q3_time
 
 ```bash
-Total execution time in seconds: 23.43
+Total execution time in seconds: 23.41
 ```
 
 - q3_memory
 
 ```bash
-Memory usage in MB (in chunks of  1 seconds): [51.2265625, 51.2265625, 52.4765625, 53.3515625, 53.95703125]
-Maximum memory usage in MB: 53.95703125
+Memory usage in MB (in chunks of  1 seconds): [51.29, 51.29, 52.54, 53.42, 53.75]
+Maximum memory usage in MB: 53.75
 ```
 
 ## Discusión
 
-Se implemento todas las funciones usando Python puro, que funciono muy bien para estas funciones pero si hubiera que escalarlo se podria pensar en otras alternativas; listo algunas:
+Se implementaron todas las funciones usando Python, que va muy bien para estas funciones pero si hubiera que escalarlo se podria pensar en otras alternativas; se listan algunas a continuación:
 
 1. Paralelización y Distribución:
   - Dask: Es ideal para paralelizacion en una sola maquina o en un cluster.
