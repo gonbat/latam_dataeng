@@ -132,8 +132,8 @@ if __name__ == "__main__":
 
     if args.funcion == "q1_memory":
         mem_usage = memory_usage((q1_memory, (args.file_path,)), interval=1)
-        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
-        print('Maximum memory usage: %s' % max(mem_usage))
+        print('Memory usage in MB (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage in MB: %s' % max(mem_usage))
     elif args.funcion == "q1_time":
         profiler = cProfile.Profile()
         profiler.enable()
@@ -141,11 +141,11 @@ if __name__ == "__main__":
         profiler.disable()
         stats = pstats.Stats(profiler)
         total_time = sum(entry[3] for entry in stats.stats.values())
-        print(f'Total execution time: {total_time}')
+        print(f'Total execution time in seconds: {total_time}')
     elif args.funcion == "q2_memory":
         mem_usage = memory_usage((q2_memory, (args.file_path,)), interval=1)
-        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
-        print('Maximum memory usage: %s' % max(mem_usage))
+        print('Memory usage in MB (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage in MB: %s' % max(mem_usage))
     elif args.funcion == "q2_time":
         profiler = cProfile.Profile()
         profiler.enable()
@@ -153,11 +153,11 @@ if __name__ == "__main__":
         profiler.disable()
         stats = pstats.Stats(profiler)
         total_time = sum(entry[3] for entry in stats.stats.values())
-        print(f'Total execution time: {total_time}')
+        print(f'Total execution time in seconds: {total_time}')
     elif args.funcion == "q3_memory":
         mem_usage = memory_usage((q3_memory, (args.file_path,)), interval=1)
-        print('Memory usage (in chunks of  1 seconds): %s' % mem_usage)
-        print('Maximum memory usage: %s' % max(mem_usage))
+        print('Memory usage in MB (in chunks of  1 seconds): %s' % mem_usage)
+        print('Maximum memory usage in MB: %s' % max(mem_usage))
     elif args.funcion == "q3_time":
         profiler = cProfile.Profile()
         profiler.enable()
@@ -165,4 +165,4 @@ if __name__ == "__main__":
         profiler.disable()
         stats = pstats.Stats(profiler)
         total_time = sum(entry[3] for entry in stats.stats.values())
-        print(f'Total execution time: {total_time}')
+        print(f'Total execution time in seconds: {total_time}')
