@@ -65,7 +65,7 @@ Si queres modificar las funciones podes hacerlo desde **soluciones.ipynb**, dond
 
 ## Resultados de Rendimiento
 
-Para medir el rendimiento de las funciones en memoria use 'memory-profiler' y para el rendimiento de tiempo utilice 'cProfile' y 'pstats'.
+Para medir el rendimiento de las funciones en memoria use **memory-profiler** y para el rendimiento de tiempo utilice **cProfile** y **pstats**.
 
  - q1_time
 
